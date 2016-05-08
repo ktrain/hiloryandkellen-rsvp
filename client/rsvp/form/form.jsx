@@ -1,6 +1,9 @@
 const React = require('react');
 const _ = require('lodash');
 
+// components
+const TextInput = require('rsvp/components/input/text.jsx');
+
 
 const Form = React.createClass({
 
@@ -28,27 +31,36 @@ const Form = React.createClass({
 		this.props.onSave(evt);
 	},
 
+	handleChange: function(evt) {
+	},
+
 	renderPlusOne: function() {
 		if (!this.props.form.hasPlusOne) {
 			return null;
 		}
 
-		return <label>
-			<h3>You've got a plus-one!</h3>
-			<input type="text" name="plusOne" placeholder="Full name" />
-			<label>
-				<input type="text" name="dietaryRestrictions" placeholder="Dietary restrictions?" />
-			</label>
-		</label>;
+		return (
+			<div className="plusOne">
+				<h3>You've got a plus-one!</h3>
+				<TextInput
+					label="What's your guest's name?"
+					placeholder="Full name"
+					value="" />
+				<TextInput
+					label="Dietary restrictions?"
+					placeholder="Lead-free, fruitarian, master cleanse, etc."
+					value="" />
+			</div>
+		);
 	},
 
 	renderGuests: function() {
 		let guests = _.map(this.state.form.guests, (guest, index) => {
 			return <div key={index} className="guest">
-				<label>
-					{guest.name}
-					<input type="text" name="dietaryRestrictions" placeholder="Dietary restrictions?" />
-				</label>
+				<TextInput
+					label={guest.name}
+					name=""
+					placeholder="Dietary restrictions?" />
 			</div>;
 		});
 
@@ -60,20 +72,19 @@ const Form = React.createClass({
 			<div className="form">
 				<h2>You're on the list!</h2>
 				<form>
-					<label>
-						Email
-						<input type="text" name="email" placeholder="Email" value={this.state.form.email} />
-					</label>
+					<TextInput
+						label="Email"
+						placeholder="Email"
+						value={this.state.form.email}
+						onChange={this.handleEmailChange} />
 					<h3>Who's coming?</h3>
 					<div className="guests">
 						{this.renderGuests()}
 					</div>
-					<div className="plusOne">
-						{this.renderPlusOne()}
-					</div>
+					{this.renderPlusOne()}
 					<div className="message">
+						<h3>Add a personal message!</h3>
 						<label>
-							Add a personal message!
 							<textarea placeholder="omgomgomgomgomgomg" />
 						</label>
 					</div>
