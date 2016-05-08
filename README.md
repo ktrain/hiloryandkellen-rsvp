@@ -1,2 +1,2 @@
 # hiloryandkellen-rsvp
-Online wedding RSVPs
+Online wedding RSVP system

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<script>global=window</script>
+		<link href="//netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Lato:400,300,700" rel="stylesheet" type="text/css">
+		<link rel="icon" href="/assets/rsvp/favicon.ico" type="image/x-icon" />
+		<meta name ="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" type="text/css" href="/rsvp/bundle.css" />
+		{{=render.globals}}
+		{{=render.headtags}}
+	</head>
+
+	<body class='preload'>
+		
+
+		<div id="reactContainer">{{=render.component}}</div>
+
+		<script src="/libs.js"></script>
+		<script src="/rsvp/bundle.js"></script>
+		<script>require("react-dom").render(require("react").createElement(require("/Users/kellen.steffen/Dropbox/code/hiloryandkellen-rsvp/client/rsvp/rsvp.jsx"), {{=render.initial_props}}), document.getElementById("reactContainer"));</script>
+	</body>
+</html>

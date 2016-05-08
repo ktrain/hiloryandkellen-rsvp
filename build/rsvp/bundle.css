@@ -1,0 +1,14 @@
+html {
+  background-color: #f6f6f6;
+  font-family: 'Lato', sans-serif;
+}
+.rsvp {
+  max-width: 800px;
+  margin: 0px auto;
+  padding: 100px;
+  background-color: white;
+  border: 2px solid #eee;
+  text-align: center;
+}
+
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImNsaWVudC9yc3ZwL3JzdnAubGVzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFDQTtFQUNDLHlCQUFBO0VBQ0EsYUFBYSxrQkFBYjs7QUFFRDtFQUNDLGdCQUFBO0VBQ0EsZ0JBQUE7RUFDQSxjQUFBO0VBQ0EsdUJBQUE7RUFDQSxzQkFBQTtFQUNBLGtCQUFBIiwic291cmNlc0NvbnRlbnQiOlsiXG5odG1sIHtcblx0YmFja2dyb3VuZC1jb2xvcjogI2Y2ZjZmNjtcblx0Zm9udC1mYW1pbHk6ICdMYXRvJywgc2Fucy1zZXJpZjtcbn1cbi5yc3ZwIHtcblx0bWF4LXdpZHRoOiA4MDBweDtcblx0bWFyZ2luOiAwcHggYXV0bztcblx0cGFkZGluZzogMTAwcHg7XG5cdGJhY2tncm91bmQtY29sb3I6IHdoaXRlO1xuXHRib3JkZXI6IDJweCBzb2xpZCAjZWVlO1xuXHR0ZXh0LWFsaWduOiBjZW50ZXI7XG59XG4iXSwiZmlsZSI6InRlbXAuY3NzIiwic291cmNlUm9vdCI6Ii9zb3VyY2UvIn0= */

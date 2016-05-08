@@ -1,0 +1,26 @@
+{
+	"/Users/kellen.steffen/Dropbox/code/hiloryandkellen-rsvp/client/rsvp/finder/finder.jsx": [
+		"react"
+	],
+	"/Users/kellen.steffen/Dropbox/code/hiloryandkellen-rsvp/client/rsvp/form/form.jsx": [
+		"react"
+	],
+	"/Users/kellen.steffen/Dropbox/code/hiloryandkellen-rsvp/shared/rsvp/actions.js": [
+		"pico-flux"
+	],
+	"/Users/kellen.steffen/Dropbox/code/hiloryandkellen-rsvp/shared/rsvp/clientConfig.js": [
+		"browserify-stockpiler"
+	],
+	"/Users/kellen.steffen/Dropbox/code/hiloryandkellen-rsvp/shared/rsvp/store.js": [
+		"pico-flux",
+		"superagent",
+		"rsvp/clientConfig"
+	],
+	"/Users/kellen.steffen/Dropbox/code/hiloryandkellen-rsvp/client/rsvp/rsvp.jsx": [
+		"react",
+		"./finder/finder.jsx",
+		"./form/form.jsx",
+		"rsvp/actions",
+		"rsvp/store"
+	]
+}

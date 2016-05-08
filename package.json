@@ -1,0 +1,40 @@
+{
+  "name": "hiloryandkellen-rsvp",
+  "version": "1.0.0",
+  "description": "Online wedding RSVP system",
+  "main": "server.js",
+  "dependencies": {
+    "app-module-path": "^1.0.6",
+    "body-parser": "^1.15.1",
+    "browserify": "^13.0.1",
+    "browserify-stockpiler": "^1.0.0",
+    "classnames": "^2.2.5",
+    "express": "^4.13.4",
+    "lodash": "^4.11.2",
+    "nconf": "^0.8.4",
+    "pg": "^4.5.5",
+    "pico-flux": "^1.1.0",
+    "react": "^15.0.2",
+    "react-addons-css-transition-group": "^15.0.2",
+    "react-dom": "^15.0.2",
+    "sequelize": "^3.23.0",
+    "superagent": "^1.8.3",
+    "vitreum": "^3.2.1"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ktrain/hiloryandkellen-rsvp.git"
+  },
+  "author": "Kellen Steffen",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ktrain/hiloryandkellen-rsvp/issues"
+  },
+  "homepage": "https://github.com/ktrain/hiloryandkellen-rsvp#readme"
+}
