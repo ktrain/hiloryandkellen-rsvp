@@ -1,13 +1,58 @@
+// colors
+@grey0: #f0f0f0;
+@grey1: #f6f6f6;
+@grey2: #eeeeee;
+@grey3: #dddddd;
 
 html {
-	background-color: #f6f6f6;
+	background-color: @grey1;
 	font-family: 'Lato', sans-serif;
+	body {
+		margin: 0px;
+	}
 }
 .rsvp {
 	max-width: 800px;
-	margin: 0px auto;
+	margin: 100px auto;
 	padding: 100px;
+	box-sizing: border-box;
+
 	background-color: white;
-	border: 2px solid #eee;
+	border: 2px solid @grey2;
 	text-align: center;
+
+	label {
+		display: block;
+		padding: 5px;
+		input {
+			margin-left: 20px;
+		}
+	}
+
+	input[type="text"], textarea {
+		padding: 10px;
+		border: 1px solid @grey3;
+		border-radius: 3px;
+		font-size: 16px;
+		min-width: 200px;
+	}
+	textarea {
+		display: block;
+		margin: 10px auto 0px;
+	}
+	button {
+		margin-top: 20px;
+		font-size: 16px;
+		border: 1px solid @grey3;
+		border-radius: 3px;
+		background-color: @grey0;
+		padding: 10px 20px;
+		cursor: pointer;
+	}
+
+	section {
+		&+ section {
+			margin-top: 50px;
+		}
+	}
 }

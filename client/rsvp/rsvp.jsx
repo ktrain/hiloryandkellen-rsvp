@@ -15,17 +15,32 @@ const RSVP = React.createClass({
 
 	onStoreChange: function() {
 		this.setState({
-			formData: Store.getForm(),
-			rsvpData: Store.getRsvp(),
+			form: Store.getForm(),
 		});
+	},
+
+	getInitialState: function() {
+		return {
+			form: Store.getForm(),
+		};
+	},
+
+	handleSave: function(data, evt) {
+		Actions.saveForm(data);
 	},
 
 	render: function() {
 		return (
 			<div className="rsvp">
-				<h1>Hilory & Kellen</h1>
-				<Finder />
-				<Form />
+				<section className="top">
+					<h1>RSVP to Hilory & Kellen's Wedding</h1>
+				</section>
+				<section>
+					<Finder />
+				</section>
+				<section>
+					<Form form={this.state.form.data} status={this.state.form.status} onSave={this.handleSave} />
+				</section>
 			</div>
 		);
 	},
