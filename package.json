@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Online wedding RSVP system",
   "main": "server.js",
+  "engines": {
+    "node": "^5.11.1"
+  },
   "dependencies": {
     "app-module-path": "^1.0.6",
     "body-parser": "^1.15.1",
@@ -10,7 +13,6 @@
     "classnames": "^2.2.5",
     "express": "^4.13.4",
     "lodash": "^4.11.2",
-    "nconf": "^0.8.4",
     "pg": "^4.5.5",
     "pico-flux": "^1.1.0",
     "react": "^15.0.2",
@@ -24,7 +26,8 @@
     "gulp": "^3.9.1"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "gulp prod"
   },
   "repository": {
     "type": "git",

@@ -1,14 +1,16 @@
 'use strict';
 
 const _ = require('lodash');
-const config = require('nconf');
+const config = require('browserify-stockpiler')({
+	envPrefix: 'APP',
+});
 const Sequelize = require('sequelize');
 
 let sequelize = null;
 let connectionOptions = {
-	logging: config.get('db:logging') ? console.info : false,
-	replication: config.get('db:replication'),
-	dialectOptions: config.get('db:dialectOptions'),
+	logging: config.db.logging ? console.info : false,
+	replication: config.db.replication,
+	dialectOptions: config.db.dialectOptions,
 };
 
 if (process.env.DATABASE_URL) {
@@ -16,13 +18,13 @@ if (process.env.DATABASE_URL) {
 } else {
   connectionOptions = _.extend(connectionOptions, {
 	dialect: 'postgres',
-	host: config.get('db:host'),
-	port: config.get('db:port'),
+	host: config.db.host,
+	port: config.db.port,
   });
   sequelize = new Sequelize(
-	config.get('db:database'),
-	config.get('db:user'),
-	config.get('db:pass'),
+	config.db.database,
+	config.db.user,
+	config.db.pass,
 	connectionOptions
   );
 }
