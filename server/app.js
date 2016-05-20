@@ -8,7 +8,6 @@ const bodyParser = require('body-parser');
 
 const vitreumRender = require('vitreum/render');
 
-const db = require('./db');
 const routes = require('./routes');
 const app = express();
 

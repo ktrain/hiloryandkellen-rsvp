@@ -1,3 +1,14 @@
 {
-  "port": "8000"
+  "port": "8000",
+  "db": {
+    "host": "",
+    "port": 5432,
+    "user": "",
+    "pass": "",
+    "database": "",
+    "replication": false,
+    "dialectOptions": {
+      "ssl": true
+    }
+  }
 }
