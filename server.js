@@ -7,7 +7,7 @@ const config = require('browserify-stockpiler')({
 const db = require('./server/db');
 const app = require('./server/app');
 
-const PORT = config.server.port;
+const PORT = process.env.PORT || config.server.port;
 db.ready.then(() => {
 	app.listen(PORT, () => {
 		console.info(`Listening on ${PORT}.`);
