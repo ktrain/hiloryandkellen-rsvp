@@ -1,4 +1,4 @@
-require('app-module-path').addPath('./shared');
+'use strict';
 
 const config = require('stockpiler')({
 	envPrefix: 'APP',
@@ -13,9 +13,11 @@ const app = express();
 
 app.use(express.static('./build'));
 
+// mount api
 app.use(bodyParser.json());
 app.use('/api', routes);
 
+// web endpoint
 app.get('/', (req, res) => {
 	vitreumRender({
 		page: './build/rsvp/bundle.dot',
