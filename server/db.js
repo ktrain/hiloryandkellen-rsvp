@@ -14,19 +14,19 @@ let connectionOptions = {
 };
 
 if (process.env.DATABASE_URL) {
-  sequelize = new Sequelize(process.env.DATABASE_URL, connectionOptions);
+	sequelize = new Sequelize(process.env.DATABASE_URL, connectionOptions);
 } else {
-  connectionOptions = _.extend(connectionOptions, {
-	dialect: 'postgres',
-	host: config.db.host,
-	port: config.db.port,
-  });
-  sequelize = new Sequelize(
-	config.db.database,
-	config.db.user,
-	config.db.pass,
-	connectionOptions
-  );
+	connectionOptions = _.extend(connectionOptions, {
+		dialect: 'postgres',
+		host: config.db.host,
+		port: config.db.port,
+	});
+	sequelize = new Sequelize(
+		config.db.database,
+		config.db.user,
+		config.db.pass,
+		connectionOptions
+	);
 }
 
 const db = {
