@@ -31,7 +31,14 @@ const Form = React.createClass({
 		this.props.onSave(evt);
 	},
 
-	handleChange: function(evt) {
+	handleChange: function(path, evt) {
+		let form = this.state.form;
+		_.set(form, path, evt.target.value);
+		//form[fieldName] = evt.target.value;
+		console.log(path, '=', `'${form[path]}'`);
+		this.setState({
+			form: form,
+		});
 	},
 
 	renderPlusOne: function() {
@@ -44,24 +51,32 @@ const Form = React.createClass({
 				<h3>You've got a plus-one!</h3>
 				<TextInput
 					label="What's your guest's name?"
+					name="plusOneName"
 					placeholder="Full name"
-					value="" />
+					value={this.state.form.plusOneName}
+					onChange={this.handleChange.bind(this, "plusOneName")} />
 				<TextInput
 					label="Dietary restrictions?"
+					name="plusOneDietaryRestrictions"
 					placeholder="Lead-free, fruitarian, master cleanse, etc."
-					value="" />
+					value={this.state.form.plusOneDietaryRestrictions}
+					onChange={this.handleChange.bind(this, "plusOneDietaryRestrictions")} />
 			</div>
 		);
 	},
 
 	renderGuests: function() {
 		let guests = _.map(this.state.form.guests, (guest, index) => {
-			return <div key={index} className="guest">
-				<TextInput
-					label={guest.name}
-					name=""
-					placeholder="Dietary restrictions?" />
-			</div>;
+			let path = `guests[${index}].dietaryRestrictions`
+			return (
+				<div key={index} className="guest">
+					<TextInput
+						label={guest.name}
+						name={path}
+						placeholder="Dietary restrictions?"
+						onChange={this.handleChange.bind(this, path)} />
+				</div>
+			);
 		});
 
 		return guests;
@@ -76,7 +91,7 @@ const Form = React.createClass({
 						label="Email"
 						placeholder="Email"
 						value={this.state.form.email}
-						onChange={this.handleEmailChange} />
+						onChange={this.handleChange.bind(this, "email")} />
 					<h3>Who's coming?</h3>
 					<div className="guests">
 						{this.renderGuests()}
@@ -85,7 +100,10 @@ const Form = React.createClass({
 					<div className="message">
 						<h3>Add a personal message!</h3>
 						<label>
-							<textarea placeholder="omgomgomgomgomgomg" />
+							<textarea
+								placeholder="omgomgomgomgomgomg"
+								value={this.state.form.message}
+								onChange={this.handleChange.bind(this, "message")} />
 						</label>
 					</div>
 

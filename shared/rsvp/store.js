@@ -19,18 +19,23 @@ let Store = {
 			guests: [
 				{
 					name: 'Amazing Guest',
+					isAttending: false,
 					dietaryRestrictions: '',
 				},
 				{
 					name: 'Incredible Guest',
+					isAttending: false,
 					dietaryRestrictions: '',
 				},
 				{
 					name: 'Unparalleled Guest',
+					isAttending: false,
 					dietaryRestrictions: '',
 				},
 			],
 			hasPlusOne: true,
+			plusOneName: '',
+			plusOneDietaryRestrictions: '',
 			message: 'omgomgomgomgomg',
 		},
 	},
