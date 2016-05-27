@@ -9,8 +9,9 @@
     "pass": "",
     "database": "",
     "replication": false,
+    "schema": "Rsvp",
     "dialectOptions": {
-      "ssl": true
+      "ssl": false
     }
   }
 }
