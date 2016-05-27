@@ -8,14 +8,14 @@ const bodyParser = require('body-parser');
 
 const vitreumRender = require('vitreum/render');
 
-const routes = require('./routes');
+const api = require('./api');
 const app = express();
 
 app.use(express.static('./build'));
 
 // mount api
 app.use(bodyParser.json());
-app.use('/api', routes);
+app.use('/api', api);
 
 // web endpoint
 app.get('/', (req, res) => {

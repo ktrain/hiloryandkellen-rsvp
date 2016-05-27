@@ -34,8 +34,6 @@ const db = {
 	sequelize: sequelize,
 };
 
-// TODO: load up models so they can be synced
-
 db.ready = db.sequelize.sync()
 	.catch((err) => {
 		err = (err instanceof Error) ? err : new Error(err);
