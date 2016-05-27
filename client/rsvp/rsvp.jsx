@@ -15,20 +15,20 @@ const RSVP = React.createClass({
 
 	onStoreChange: function() {
 		this.setState({
-			form: Store.getForm(),
-			answers: Store.getAnswers(),
+			invitation: Store.getInvitation(),
+			rsvp: Store.getRsvp(),
 		});
 	},
 
 	getInitialState: function() {
 		return {
-			form: Store.getForm(),
-			answers: Store.getAnswers(),
+			invitation: Store.getInvitation(),
+			rsvp: Store.getRsvp(),
 		};
 	},
 
 	handleSave: function(data, evt) {
-		Actions.saveForm(data);
+		Actions.saveRsvp(data);
 	},
 
 	render: function() {
@@ -42,9 +42,9 @@ const RSVP = React.createClass({
 				</section>
 				<section>
 					<Form
-						form={this.state.form.data}
-						initialAnswers={this.state.answers.data}
-						status={this.state.form.status}
+						form={this.state.invitation.data}
+						initialRsvp={this.state.rsvp.data}
+						status={this.state.invitation.status}
 						onSave={this.handleSave} />
 				</section>
 			</div>

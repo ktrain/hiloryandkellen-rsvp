@@ -31,28 +31,28 @@ const Form = React.createClass({
 		return {
 			onSave: function() {},
 			form: {},
-			initialAnswers: {},
+			initialRsvp: {},
 			status: {},
 		};
 	},
 
 	getInitialState: function() {
 		return {
-			answers: _.cloneDeep(this.props.initialAnswers),
+			rsvp: _.cloneDeep(this.props.initialRsvp),
 		};
 	},
 
 	handleSave: function(evt) {
 		evt && evt.preventDefault();
-		this.props.onSave(this.state.answers, evt);
+		this.props.onSave(this.state.rsvp, evt);
 	},
 
 	handleChange: function(valueAttribute, evt) {
-		let answers = this.state.answers;
+		let rsvp = this.state.rsvp;
 		let path = evt.target.name;
-		_.set(answers, path, evt.target[valueAttribute]);
-		console.log(path, '=', JSON.stringify(_.get(answers, path)));
-		this.setState({ answers: answers });
+		_.set(rsvp, path, evt.target[valueAttribute]);
+		console.log(path, '=', JSON.stringify(_.get(rsvp, path)));
+		this.setState({ rsvp: rsvp });
 	},
 
 	renderPlusOne: function() {
@@ -67,13 +67,13 @@ const Form = React.createClass({
 					label="What's your guest's name?"
 					name="plusOne.name"
 					placeholder="Full name"
-					value={this.state.answers.plusOne.name}
+					value={this.state.rsvp.plusOne.name}
 					onChange={this.handleChange.bind(this, 'value')} />
 				<TextInput
 					label="Dietary restrictions?"
 					name="plusOne.dietaryRestrictions"
 					placeholder="Lead-free, fruitarian, etc."
-					value={this.state.answers.plusOne.dietaryRestrictions}
+					value={this.state.rsvp.plusOne.dietaryRestrictions}
 					onChange={this.handleChange.bind(this, 'value')} />
 			</div>
 		);
@@ -145,7 +145,7 @@ const Form = React.createClass({
 						label="Email"
 						placeholder="Email"
 						name="email"
-						value={this.state.answers.email}
+						value={this.state.rsvp.email}
 						onChange={this.handleChange.bind(this, 'value')} />
 					<h3>Who's coming?</h3>
 					<div className="guests">
@@ -156,7 +156,7 @@ const Form = React.createClass({
 						<h3>Got any music requests?</h3>
 						<textarea
 							placeholder="Turn down for what?"
-							value={this.state.answers.musicRequests}
+							value={this.state.rsvp.musicRequests}
 							name="musicRequests"
 							onChange={this.handleChange.bind(this, 'value')} />
 					</div>
@@ -166,7 +166,7 @@ const Form = React.createClass({
 						<label>
 							<textarea
 								placeholder="omgomgomgomgomgomg"
-								value={this.state.answers.message}
+								value={this.state.rsvp.message}
 								name="message"
 								onChange={this.handleChange.bind(this, 'value')} />
 						</label>

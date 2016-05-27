@@ -12,7 +12,7 @@ const getDefaultStatus = function() {
 };
 
 let Store = {
-	form: {
+	invitation: {
 		'status': getDefaultStatus(),
 		data: {
 			guests: [
@@ -34,7 +34,7 @@ let Store = {
 			],
 		},
 	},
-	answers: {
+	rsvp: {
 		'status': getDefaultStatus(),
 		data: {
 			email: '',
@@ -67,40 +67,40 @@ let Store = {
 
 module.exports = flux.createStore({
 
-	GET_FORM: function(name) {
-		Store.form.status.busy = true;
-		Store.form.status.err = null;
+	GET_INVITATION: function(name) {
+		Store.invitation.status.busy = true;
+		Store.invitation.status.err = null;
 
 		ajax
-			.get(`/api/form/${encodeURIComponent(name)}`)
+			.get(`/api/invitation/${encodeURIComponent(name)}`)
 			.end((err, res) => {
-				Store.form.status.busy = false;
+				Store.invitation.status.busy = false;
 				if (err) {
-					Store.form.status.err = err;
-					Store.form.data = {};
+					Store.invitation.status.err = err;
+					Store.invitation.data = {};
 				} else {
-					Store.form.data = res.body;
+					Store.invitation.data = res.body;
 				}
 				this.emitChange();
 			});
 	},
 
-	SAVE_FORM: function(payload) {
+	SAVE_INVITATION: function(payload) {
 		console.log(payload);
 		return false;
 	},
 
-	SAVE_ANSWERS: function(payload) {
+	SAVE_RSVP: function(payload) {
 	},
 
 }, {
 
-	getForm: function() {
-		return Store.form;
+	getInvitation: function() {
+		return Store.invitation;
 	},
 
-	getAnswers: function() {
-		return Store.answers;
+	getRsvp: function() {
+		return Store.rsvp;
 	},
 
 });

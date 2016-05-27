@@ -25,7 +25,7 @@ const Finder = React.createClass({
 
 	handleFindClick: function(evt) {
 		evt && evt.preventDefault();
-		Actions.getForm(this.state.name);
+		Actions.getInvitation(this.state.name);
 	},
 
 	render: function() {
