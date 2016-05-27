@@ -16,12 +16,14 @@ const RSVP = React.createClass({
 	onStoreChange: function() {
 		this.setState({
 			form: Store.getForm(),
+			answers: Store.getAnswers(),
 		});
 	},
 
 	getInitialState: function() {
 		return {
 			form: Store.getForm(),
+			answers: Store.getAnswers(),
 		};
 	},
 
@@ -39,7 +41,11 @@ const RSVP = React.createClass({
 					<Finder />
 				</section>
 				<section>
-					<Form form={this.state.form.data} status={this.state.form.status} onSave={this.handleSave} />
+					<Form
+						form={this.state.form.data}
+						initialAnswers={this.state.answers.data}
+						status={this.state.form.status}
+						onSave={this.handleSave} />
 				</section>
 			</div>
 		);

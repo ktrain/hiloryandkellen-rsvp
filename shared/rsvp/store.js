@@ -15,28 +15,52 @@ let Store = {
 	form: {
 		'status': getDefaultStatus(),
 		data: {
-			email: 'amazingGuest@isp.net',
 			guests: [
 				{
 					name: 'Amazing Guest',
-					isAttending: false,
+				},
+				{
+					name: 'Incredible Guest',
+				},
+				{
+					name: 'Unparalleled Guest',
+				},
+			],
+			hasPlusOne: true,
+			events: [
+				'Rehearsal Dinner',
+				'Wedding',
+				'Brunch',
+			],
+		},
+	},
+	answers: {
+		'status': getDefaultStatus(),
+		data: {
+			email: '',
+			guests: [
+				{
+					name: 'Amazing Guest',
+					isAttending: {},
 					dietaryRestrictions: '',
 				},
 				{
 					name: 'Incredible Guest',
-					isAttending: false,
+					isAttending: {},
 					dietaryRestrictions: '',
 				},
 				{
 					name: 'Unparalleled Guest',
-					isAttending: false,
+					isAttending: {},
 					dietaryRestrictions: '',
 				},
 			],
-			hasPlusOne: true,
-			plusOneName: '',
-			plusOneDietaryRestrictions: '',
-			message: 'omgomgomgomgomg',
+			plusOne: {
+				name: '',
+				dietaryRestrictions: '',
+			},
+			musicRequests: '',
+			message: '',
 		},
 	},
 };
@@ -62,12 +86,21 @@ module.exports = flux.createStore({
 	},
 
 	SAVE_FORM: function(payload) {
+		console.log(payload);
+		return false;
+	},
+
+	SAVE_ANSWERS: function(payload) {
 	},
 
 }, {
 
 	getForm: function() {
 		return Store.form;
+	},
+
+	getAnswers: function() {
+		return Store.answers;
 	},
 
 });

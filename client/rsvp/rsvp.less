@@ -3,6 +3,7 @@
 @grey1: #f6f6f6;
 @grey2: #eeeeee;
 @grey3: #dddddd;
+@grey4: #8e9399;
 
 html {
 	background-color: @grey1;
@@ -14,14 +15,14 @@ html {
 .rsvp {
 	max-width: 800px;
 	margin: 100px auto;
-	padding: 100px;
+	padding: 50px;
 	box-sizing: border-box;
 
 	background-color: white;
 	border: 2px solid @grey2;
 	text-align: center;
 
-	label {
+	.textInput {
 		display: block;
 		padding: 5px;
 		input {
@@ -34,7 +35,7 @@ html {
 		border: 1px solid @grey3;
 		border-radius: 3px;
 		font-size: 16px;
-		min-width: 200px;
+		min-width: 250px;
 	}
 	textarea {
 		min-width: 300px;
@@ -54,5 +55,14 @@ html {
 		&+ section {
 			margin-top: 50px;
 		}
+	}
+}
+
+@mobile: ~"only screen and (max-width : 797px)";
+
+@media @mobile {
+	.rsvp {
+		padding: 20px;
+		margin: 20px auto;
 	}
 }

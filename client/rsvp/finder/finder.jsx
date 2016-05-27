@@ -1,5 +1,8 @@
 const React = require('react');
 
+// components
+const TextInput = require('rsvp/components/input/text.jsx');
+
 // data
 const Actions = require('rsvp/actions');
 
@@ -29,14 +32,11 @@ const Finder = React.createClass({
 		return (
 			<div className="finder">
 				<form>
-					<label>
-						What's your name?
-						<input
-							type="text"
-							placeholder="Full name"
-							value={this.state.name}
-							onChange={this.handleChange} />
-					</label>
+					<TextInput
+						label="What's your name?"
+						placeholder="Full name"
+						value={this.state.name}
+						onChange={this.handleChange} />
 					<button onClick={this.handleFindClick}>Look me up!</button>
 				</form>
 			</div>

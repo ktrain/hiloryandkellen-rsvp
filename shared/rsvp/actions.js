@@ -10,6 +10,10 @@ const Actions = {
 		dispatch('SAVE_FORM', data);
 	},
 
+	saveAnswers: (data) => {
+		display('SAVE_ANSWERS', data);
+	},
+
 };
 
 module.exports = Actions;
