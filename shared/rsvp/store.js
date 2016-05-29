@@ -72,14 +72,14 @@ module.exports = flux.createStore({
 		Store.invitation.status.err = null;
 
 		ajax
-			.get(`/api/invitation/${encodeURIComponent(name)}`)
+			.get(`/api/invitations/${encodeURIComponent(name)}`)
 			.end((err, res) => {
 				Store.invitation.status.busy = false;
 				if (err) {
 					Store.invitation.status.err = err;
 					Store.invitation.data = {};
 				} else {
-					Store.invitation.data = res.body;
+					Store.invitation.data = res.body.invitation;
 				}
 				this.emitChange();
 			});

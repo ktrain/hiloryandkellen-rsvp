@@ -10,6 +10,7 @@
     "database": "",
     "replication": false,
     "schema": "Rsvp",
+    "logging": true,
     "dialectOptions": {
       "ssl": false
     }

@@ -15,7 +15,7 @@ app.use(express.static('./build'));
 
 // mount api
 app.use(bodyParser.json());
-app.use('/api', api);
+app.use('/api', (req, res, next) => { console.info('Routing in to API ...'); next(); }, api);
 
 // web endpoint
 app.get('/', (req, res) => {
