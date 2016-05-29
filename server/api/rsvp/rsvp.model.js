@@ -1,8 +1,11 @@
 'use strict';
 
-const db = require('../db.js');
+const config = require('browserify-stockpiler')({
+	envPrefix: 'APP',
+});
+const db = require('../../db.js');
 
-const RSVPModel = db.sequelize.define('Rsvp', {
+const RsvpModel = db.sequelize.define('Rsvp', {
 	email: {
 		type: db.Sequelize.STRING,
 		allowNull: false,
@@ -24,8 +27,19 @@ const RSVPModel = db.sequelize.define('Rsvp', {
 	},
 }, {
 	schema: config.db.schema,
+	hooks: {
+		beforeValidate: function() {
+			if (!this.id) {
+				this.id = this.invitationId;
+			}
+		},
+	},
 	classMethods: {
 	},
 });
 
-module.exports = RSVPModel;
+RsvpModel.belongsTo(db.sequelize.models.Invitation, {
+	foreignKey: 'invitationId',
+});
+
+module.exports = RsvpModel;
