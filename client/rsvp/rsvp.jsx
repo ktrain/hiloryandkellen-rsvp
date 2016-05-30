@@ -44,7 +44,7 @@ const RSVP = React.createClass({
 					<Form
 						form={this.state.invitation.data}
 						initialRsvp={this.state.rsvp.data}
-						status={this.state.invitation.status}
+						status={this.state.rsvp.status}
 						onSave={this.handleSave} />
 				</section>
 			</div>

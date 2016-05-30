@@ -3,6 +3,7 @@ const ajax = require('superagent');
 
 // data
 const clientConfig = require('rsvp/clientConfig');
+const Actions = require('./actions');
 
 const getDefaultStatus = function() {
 	return {
@@ -13,55 +14,12 @@ const getDefaultStatus = function() {
 
 let Store = {
 	invitation: {
-		'status': getDefaultStatus(),
-		data: {
-			guests: [
-				{
-					name: 'Amazing Guest',
-				},
-				{
-					name: 'Incredible Guest',
-				},
-				{
-					name: 'Unparalleled Guest',
-				},
-			],
-			hasPlusOne: true,
-			events: [
-				'Rehearsal Dinner',
-				'Wedding',
-				'Brunch',
-			],
-		},
+		status: getDefaultStatus(),
+		data: null,
 	},
 	rsvp: {
-		'status': getDefaultStatus(),
-		data: {
-			email: '',
-			guests: [
-				{
-					name: 'Amazing Guest',
-					isAttending: {},
-					dietaryRestrictions: '',
-				},
-				{
-					name: 'Incredible Guest',
-					isAttending: {},
-					dietaryRestrictions: '',
-				},
-				{
-					name: 'Unparalleled Guest',
-					isAttending: {},
-					dietaryRestrictions: '',
-				},
-			],
-			plusOne: {
-				name: '',
-				dietaryRestrictions: '',
-			},
-			musicRequests: '',
-			message: '',
-		},
+		status: getDefaultStatus(),
+		data: null,
 	},
 };
 
@@ -72,25 +30,79 @@ module.exports = flux.createStore({
 		Store.invitation.status.err = null;
 
 		ajax
-			.get(`/api/invitations/${encodeURIComponent(name)}`)
+			.get(`/api/invitation/${encodeURIComponent(name)}`)
 			.end((err, res) => {
 				Store.invitation.status.busy = false;
 				if (err) {
-					Store.invitation.status.err = err;
+					Store.invitation.status.err = err.response.body;
 					Store.invitation.data = {};
 				} else {
 					Store.invitation.data = res.body.invitation;
+					Actions.getRsvp();
 				}
 				this.emitChange();
 			});
 	},
 
-	SAVE_INVITATION: function(payload) {
-		console.log(payload);
-		return false;
+	GET_RSVP: function(payload) {
+		if (!Store.invitation.data.id) {
+			Store.rsvp.status.busy = false;
+			Store.rsvp.status.err = {
+				message: 'You must have a valid invitation ID in order to fetch an existing RSVP.',
+			};
+			return true;
+		}
+
+		Store.rsvp.status.busy = true;
+		Store.rsvp.status.err = null;
+
+		ajax
+			.get(`/api/rsvp/${Store.invitation.data.id}`)
+			.end((err, res) => {
+				Store.rsvp.status.busy = false;
+				if (err) {
+					console.error(err);
+					// there's no rsvp for this invitation ID, so set up the data
+					const invitation = Store.invitation.data;
+					Store.rsvp.data = {
+						email: '',
+						guests: _.map(invitation.guests, (guest) => {
+							return {
+								name: guest,
+								isAttending: {},
+								dietaryRestrictions: '',
+							};
+						}),
+						plusOne: {},
+						musicRequests: '',
+						message: '',
+					};
+				} else {
+					Store.rsvp.data = res.body.rsvp;
+				}
+				console.log('store rsvp data', Store.rsvp.data);
+				this.emitChange();
+			});
 	},
 
 	SAVE_RSVP: function(payload) {
+		Store.rsvp.status.busy = true;
+		Store.rsvp.status.err = null;
+
+		ajax
+			.post(`/api/rsvp/${Store.invitation.data.id}`)
+			.send(payload)
+			.end((err, res) => {
+				Store.rsvp.status.busy = false;
+				if (err) {
+					console.error('err response body', err.response.body);
+					Store.rsvp.status.err = err.response.body;
+					Store.rsvp.data = {};
+				} else {
+					Store.rsvp.data = res.body.rsvp;
+				}
+				this.emitChange();
+			});
 	},
 
 }, {

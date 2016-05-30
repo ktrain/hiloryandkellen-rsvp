@@ -5,6 +5,7 @@ const _ = require('lodash');
 const TextInput = require('rsvp/components/input/text.jsx');
 
 // data
+const Store = require('rsvp/store');
 const Fields = {
 	'Rehearsal Dinner': {
 		type: 'checkbox',
@@ -38,11 +39,23 @@ const Form = React.createClass({
 
 	getInitialState: function() {
 		return {
-			rsvp: _.cloneDeep(this.props.initialRsvp),
+			rsvp: _.cloneDeep(this.props.initialRsvp) || {},
+			plusOneActivated: false,
 		};
 	},
 
-	handleSave: function(evt) {
+	componentWillReceiveProps: function(nextProps) {
+		/*const noRsvp = !this.state.rsvp || !this.state.rsvp.id;
+		const incomingRsvp = nextProps.initialRsvp && nextProps.initialRsvp.id;
+		console.log('current rsvp', this.state.rsvp);
+		console.log('nextProps initialRsvp', nextProps.initialRsvp);
+		if (noRsvp && incomingRsvp) {
+			console.log('setting incoming rsvp');*/
+			this.setState({ rsvp: _.cloneDeep(nextProps.initialRsvp) });
+		//}
+	},
+
+	handleSubmit: function(evt) {
 		evt && evt.preventDefault();
 		this.props.onSave(this.state.rsvp, evt);
 	},
@@ -55,26 +68,45 @@ const Form = React.createClass({
 		this.setState({ rsvp: rsvp });
 	},
 
+	handleActivatePlusOne: function(evt) {
+		evt && evt.preventDefault();
+		this.setState({ plusOneActivated: true });
+	},
+
 	renderPlusOne: function() {
 		if (!this.props.form.hasPlusOne) {
 			return null;
 		}
 
-		return (
-			<div className="plusOne">
-				<h3>You've got a plus-one!</h3>
+		let content;
+
+		if (!this.state.plusOneActivated) {
+			content = <div className="plusOne">
+				<button type="button" onClick={this.handleActivatePlusOne}>I'll be bringing a guest!</button>
+			</div>;
+		} else {
+			content = [
 				<TextInput
+					key={0}
 					label="What's your guest's name?"
 					name="plusOne.name"
 					placeholder="Full name"
 					value={this.state.rsvp.plusOne.name}
-					onChange={this.handleChange.bind(this, 'value')} />
+					onChange={this.handleChange.bind(this, 'value')} />,
 				<TextInput
+					key={1}
 					label="Dietary restrictions?"
 					name="plusOne.dietaryRestrictions"
 					placeholder="Lead-free, fruitarian, etc."
 					value={this.state.rsvp.plusOne.dietaryRestrictions}
 					onChange={this.handleChange.bind(this, 'value')} />
+			];
+		}
+
+		return (
+			<div className="plusOne">
+				<h3>You've got a plus-one!</h3>
+				{content}
 			</div>
 		);
 	},
@@ -83,9 +115,11 @@ const Form = React.createClass({
 		let rows = _.map(this.props.form.guests, (guest, guestIndex) => {
 			let path = `guests[${guestIndex}].dietaryRestrictions`;
 			return <tr key={guestIndex}>
-				<td className="guestName cell">{guest.name}</td>
+				<td className="guestName cell">{guest}</td>
 				{_.map(headers, (header, headerIndex) => {
 					let path = `guests[${guestIndex}]${header.path}`;
+					let value = _.get(this.state.rsvp, path);
+					console.log('get', this.state.rsvp, path, _.get(this.state.rsvp, path));
 					return (
 						<td key={headerIndex}>
 							<label>
@@ -94,6 +128,8 @@ const Form = React.createClass({
 									className="cell"
 									name={path}
 									placeholder={header.placeholder || header.title}
+									checked={value || false}
+									value={value}
 									onChange={this.handleChange.bind(this, Fields[header.title].valueAttribute)} />
 							</label>
 						</td>
@@ -136,16 +172,43 @@ const Form = React.createClass({
 		return guests;
 	},
 
+	renderError: function() {
+		const err = this.props.status.err;
+		if (!err) {
+			return null;
+		}
+
+		console.log('err', err);
+
+		let content = 'Something weird happened. Please try again later.';
+		if (err.type === 'notNull Violation') {
+			content = `Please enter your ${err.path}.`;
+		} else if (err.type === 'Validation error') {
+			content = `Please enter a valid ${err.path}.`;
+		}
+
+		return <div className="error">
+			<div className="content">{content}</div>
+		</div>;
+	},
+
 	render: function() {
+		if (!this.props.form) {
+			return null;
+		}
+
+		const rsvp = this.state.rsvp || {};
+		console.log('rsvp', rsvp);
+
 		return (
 			<div className="form">
 				<h2>You're on the list!</h2>
-				<form>
+				<form onSubmit={this.handleSubmit}>
 					<TextInput
 						label="Email"
 						placeholder="Email"
 						name="email"
-						value={this.state.rsvp.email}
+						value={rsvp.email}
 						onChange={this.handleChange.bind(this, 'value')} />
 					<h3>Who's coming?</h3>
 					<div className="guests">
@@ -156,7 +219,7 @@ const Form = React.createClass({
 						<h3>Got any music requests?</h3>
 						<textarea
 							placeholder="Turn down for what?"
-							value={this.state.rsvp.musicRequests}
+							value={rsvp.musicRequests}
 							name="musicRequests"
 							onChange={this.handleChange.bind(this, 'value')} />
 					</div>
@@ -166,13 +229,15 @@ const Form = React.createClass({
 						<label>
 							<textarea
 								placeholder="omgomgomgomgomgomg"
-								value={this.state.rsvp.message}
+								value={rsvp.message}
 								name="message"
 								onChange={this.handleChange.bind(this, 'value')} />
 						</label>
 					</div>
 
-					<button onClick={this.handleSave}>Save RSVP</button>
+					<button>Save RSVP</button>
+
+					{this.renderError()}
 				</form>
 			</div>
 		);

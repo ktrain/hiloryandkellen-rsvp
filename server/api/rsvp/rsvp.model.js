@@ -9,6 +9,9 @@ const RsvpModel = db.sequelize.define('Rsvp', {
 	email: {
 		type: db.Sequelize.STRING,
 		allowNull: false,
+		validate: {
+			isEmail: true,
+		},
 	},
 	guests: {
 		type: db.Sequelize.JSONB,
