@@ -27,7 +27,7 @@ const InvitationModel = db.sequelize.define('Invitation', {
 	classMethods: {
 		findInvitationByName: (name) => {
 			return InvitationModel.find({
-				where: [ `LOWER("guests"::text) LIKE '%${name.toLowerCase()}%'` ],
+				where: [ `LOWER("guests"::text) LIKE '%"${name.toLowerCase()}"%'` ],
 			});
 		},
 	},
