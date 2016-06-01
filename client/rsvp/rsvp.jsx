@@ -1,4 +1,5 @@
 const React = require('react');
+const headtags = require('vitreum/headtags');
 
 // data
 const Actions = require('rsvp/actions');
@@ -25,6 +26,11 @@ const RSVP = React.createClass({
 			invitation: Store.getInvitation(),
 			rsvp: Store.getRsvp(),
 		};
+	},
+
+	componentWillMount: function() {
+		headtags.setTitle('RSVP — Hilory & Kellen');
+		headtags.setDescription("RSVP to Hilory and Kellen's wedding!");
 	},
 
 	handleSave: function(data, evt) {
