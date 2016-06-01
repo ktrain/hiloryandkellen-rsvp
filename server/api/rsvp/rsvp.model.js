@@ -31,9 +31,9 @@ const RsvpModel = db.sequelize.define('Rsvp', {
 }, {
 	schema: config.db.schema,
 	hooks: {
-		beforeValidate: function() {
-			if (!this.id) {
-				this.id = this.invitationId;
+		beforeValidate: (rsvp) => {
+			if (!rsvp.id) {
+				rsvp.id = rsvp.invitationId;
 			}
 		},
 	},

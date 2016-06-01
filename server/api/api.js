@@ -1,7 +1,7 @@
 'use strict';
 
 const router = require('express').Router();
-const errorHandler = require('./error');
+const errorHandler = require('./error.middleware.js');
 
 router.use('/invitation', (req, res, next) => {
 	console.log('Routing in to invitation module ...');
