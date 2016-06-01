@@ -47,7 +47,23 @@ const Finder = React.createClass({
 			>{content}</button>;
 	},
 
+	renderError: function() {
+		let errorContent;
+		if (this.state.invitation.status.code === 404) {
+			errorContent = "No invitation found! Did you type your name carefully?";
+		} else if (this.state.invitation.status.err) {
+			errorContent = "Something weird happened. Please try again later.";
+        }
+
+		if (!errorContent) {
+			return null;
+		}
+
+		return <div className="error"><div className="content">{errorContent}</div></div>;
+	},
+
 	render: function() {
+
 		return (
 			<div className="finder">
 				<form onSubmit={this.handleSubmit}>
@@ -58,6 +74,7 @@ const Finder = React.createClass({
 						onChange={this.handleChange} />
 					{this.renderButton()}
 				</form>
+				{this.renderError()}
 			</div>
 		);
 	},
