@@ -8,6 +8,7 @@ const Actions = require('./actions');
 const getDefaultStatus = function() {
 	return {
 		busy: false,
+		code: null,
 		err: null,
 	};
 };
@@ -27,15 +28,17 @@ module.exports = flux.createStore({
 
 	GET_INVITATION: function(name) {
 		Store.invitation.status.busy = true;
+		Store.invitation.status.code = null;
 		Store.invitation.status.err = null;
 
 		ajax
 			.get(`/api/invitation/${encodeURIComponent(name)}`)
 			.end((err, res) => {
 				Store.invitation.status.busy = false;
+				Store.invitation.status.code = res.status;
 				if (err) {
 					Store.invitation.status.err = err.response.body;
-					Store.invitation.data = {};
+					Store.invitation.data = null;
 				} else {
 					Store.invitation.data = res.body.invitation;
 					Actions.getRsvp();
@@ -47,6 +50,7 @@ module.exports = flux.createStore({
 	GET_RSVP: function(payload) {
 		if (!Store.invitation.data.id) {
 			Store.rsvp.status.busy = false;
+			Store.rsvp.status.code = null;
 			Store.rsvp.status.err = {
 				message: 'You must have a valid invitation ID in order to fetch an existing RSVP.',
 			};
@@ -54,12 +58,14 @@ module.exports = flux.createStore({
 		}
 
 		Store.rsvp.status.busy = true;
+		Store.rsvp.status.code = null;
 		Store.rsvp.status.err = null;
 
 		ajax
 			.get(`/api/rsvp/${Store.invitation.data.id}`)
 			.end((err, res) => {
 				Store.rsvp.status.busy = false;
+				Store.rsvp.status.code = res.status;
 				if (err) {
 					console.error(err);
 					// there's no rsvp for this invitation ID, so set up the data
