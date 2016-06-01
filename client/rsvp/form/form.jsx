@@ -45,14 +45,7 @@ const Form = React.createClass({
 	},
 
 	componentWillReceiveProps: function(nextProps) {
-		/*const noRsvp = !this.state.rsvp || !this.state.rsvp.id;
-		const incomingRsvp = nextProps.initialRsvp && nextProps.initialRsvp.id;
-		console.log('current rsvp', this.state.rsvp);
-		console.log('nextProps initialRsvp', nextProps.initialRsvp);
-		if (noRsvp && incomingRsvp) {
-			console.log('setting incoming rsvp');*/
-			this.setState({ rsvp: _.cloneDeep(nextProps.initialRsvp) });
-		//}
+		this.setState({ rsvp: _.cloneDeep(nextProps.initialRsvp) });
 	},
 
 	handleSubmit: function(evt) {
@@ -64,7 +57,7 @@ const Form = React.createClass({
 		let rsvp = this.state.rsvp;
 		let path = evt.target.name;
 		_.set(rsvp, path, evt.target[valueAttribute]);
-		console.log(path, '=', JSON.stringify(_.get(rsvp, path)));
+		//console.log(path, '=', JSON.stringify(_.get(rsvp, path)));
 		this.setState({ rsvp: rsvp });
 	},
 
@@ -119,7 +112,7 @@ const Form = React.createClass({
 				{_.map(headers, (header, headerIndex) => {
 					let path = `guests[${guestIndex}]${header.path}`;
 					let value = _.get(this.state.rsvp, path);
-					console.log('get', this.state.rsvp, path, _.get(this.state.rsvp, path));
+					//console.log('get', this.state.rsvp, path, _.get(this.state.rsvp, path));
 					return (
 						<td key={headerIndex}>
 							<label>
@@ -198,7 +191,6 @@ const Form = React.createClass({
 		}
 
 		const rsvp = this.state.rsvp || {};
-		console.log('rsvp', rsvp);
 
 		return (
 			<div className="form">
