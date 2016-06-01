@@ -203,6 +203,7 @@ const Form = React.createClass({
 		return (
 			<div className="form">
 				<h2>You're on the list!</h2>
+				<h4>We just need a little information.</h4>
 				<form onSubmit={this.handleSubmit}>
 					<TextInput
 						label="Email"

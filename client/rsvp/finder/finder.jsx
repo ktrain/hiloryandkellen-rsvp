@@ -23,8 +23,7 @@ const Finder = React.createClass({
 
 	getInitialState: function() {
 		return {
-			// TODO: make this blank
-			name: 'alfred mendoza',
+			name: '',
 			invitation: Store.getInvitation(),
 		};
 	},
