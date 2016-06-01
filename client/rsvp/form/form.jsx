@@ -185,6 +185,14 @@ const Form = React.createClass({
 		</div>;
 	},
 
+	renderSaveButton: function() {
+		let content = "Save RSVP";
+		if (this.props.status.busy) {
+			content = <i className="fa fa-spinner fa-spin" />;
+		}
+		return <button disabled={this.props.status.busy}>{content}</button>;
+	},
+
 	render: function() {
 		if (!this.props.form) {
 			return null;
@@ -227,7 +235,7 @@ const Form = React.createClass({
 						</label>
 					</div>
 
-					<button>Save RSVP</button>
+					{this.renderSaveButton()}
 
 					{this.renderError()}
 				</form>
