@@ -103,7 +103,6 @@ module.exports = flux.createStore({
 				if (err) {
 					console.error('err response body', err.response.body);
 					Store.rsvp.status.err = err.response.body;
-					Store.rsvp.data = {};
 				} else {
 					Store.rsvp.data = res.body.rsvp;
 				}
