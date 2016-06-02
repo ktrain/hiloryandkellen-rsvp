@@ -10,8 +10,14 @@
 		text-align: left;
 		width: 100%;
 		thead {
-			tr {
-				display: table-cell;
+			.attending {
+				text-align: center;
+				&:not([colspan="1"]) {
+					background-color: @grey1;
+				}
+			}
+			.event {
+				text-align: center;
 			}
 		}
 		tbody {
@@ -23,6 +29,10 @@
 					}
 					input[type="checkbox"] {
 						font-size: 64px;
+					}
+					label {
+						display: block;
+						text-align: center;
 					}
 				}
 			}

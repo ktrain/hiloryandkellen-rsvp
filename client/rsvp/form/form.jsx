@@ -141,6 +141,7 @@ const Form = React.createClass({
 				path: `.isAttending['${evt}']`,
 			};
 		});
+		let eventSuperHeaderWidth = eventHeaders.length.toString();
 		let headers = _.concat(eventHeaders, [{
 			title: 'Dietary Restrictions',
 			placeholder: 'Lead-free, fruitarian, etc.',
@@ -150,10 +151,21 @@ const Form = React.createClass({
 			<div className="guests">
 				<table>
 					<thead>
-						<tr><th>Guest Name</th></tr>
-						{_.map(headers, (header, index) => {
-							return <tr key={index}><th>{header.title}</th></tr>;
-						})}
+						<tr>
+							<th></th>
+							<th
+								className="attending"
+								colSpan={eventSuperHeaderWidth}
+								scope="colgroup">Attending</th>
+							<th></th>
+						</tr>
+						<tr>
+							<th>Guest Name</th>
+							{_.map(eventHeaders, (header, index) => {
+								return <th className="event" key={index}>{header.title}</th>;
+							})}
+							<th>Dietary Restrictions</th>
+						</tr>
 					</thead>
 					<tbody>
 						{this.renderGuestRows(headers)}
