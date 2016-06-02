@@ -183,8 +183,6 @@ const Form = React.createClass({
 			return null;
 		}
 
-		console.log('err', err);
-
 		let content = 'Something weird happened. Please try again later.';
 		if (err.type === 'notNull Violation') {
 			content = `Please enter your ${err.path}.`;

@@ -86,7 +86,7 @@ module.exports = flux.createStore({
 				} else {
 					Store.rsvp.data = res.body.rsvp;
 				}
-				console.log('store rsvp data', Store.rsvp.data);
+				//console.log('store rsvp data', Store.rsvp.data);
 				this.emitChange();
 			});
 	},

@@ -39,13 +39,12 @@ const RSVP = React.createClass({
 
 	renderResult: function() {
 		let rsvp = this.state.rsvp;
-		if (rsvp.status.err || rsvp.status.busy || !rsvp.data) {
+		if (rsvp.status.err || rsvp.status.busy || !rsvp.data || !rsvp.data.id) {
 			return null;
 		}
 		let content = "We're sorry you won't be able to make it!";
 		let attending = _.reduce(this.state.rsvp.data.guests, (cur, guest) => {
 			let guestIsAttendingAtLeastOneThing = _.some(_.values(guest.isAttending));
-			console.log(cur, 'guest is attending at least one thing', guestIsAttendingAtLeastOneThing);
 			return cur || guestIsAttendingAtLeastOneThing;
 		}, false);
 		if (attending) {
