@@ -53,15 +53,13 @@ RsvpRouter.post('/:id', (req, res, next) => {
 			if (!rsvp) {
 				rsvp = RsvpModel.build();
 			}
-			let data = req.body;
-			if (!invitation.hasPlusOne) {
-				data = _.omit(data, 'plusOne');
-			}
+			const data = _.extend({}, req.body, {
+				invitationId: id,
+			});
 			rsvp.set(data);
-			rsvp.invitationId = id;
 			return rsvp.save();
 		}).then((rsvp) => {
-			res.status(200).send({ rsvp: rsvp });
+			res.status(200).send({ rsvp: rsvp.toPayloadJSON() });
 		}).catch((err) => {
 			next(err);
 		});

@@ -1,5 +1,6 @@
 'use strict';
 
+const _ = require('lodash');
 const config = require('browserify-stockpiler')({
 	envPrefix: 'APP',
 });
@@ -21,6 +22,13 @@ const RsvpModel = db.sequelize.define('Rsvp', {
 	plusOne: {
 		type: db.Sequelize.JSONB,
 		defaultValue: {},
+		set: function(val) {
+			const invite = this.getInvitation();
+			if (!invite.hasPlusOne) {
+				return null;
+			}
+			return val;
+		},
 	},
 	musicRequests: {
 		type: db.Sequelize.STRING,
@@ -37,7 +45,15 @@ const RsvpModel = db.sequelize.define('Rsvp', {
 			}
 		},
 	},
-	classMethods: {
+	instanceMethods: {
+		toPayloadJSON: function() {
+			const invite = this.getInvitation();
+			const keysToOmit = [ 'createdAt', 'updatedAt' ];
+			if (!invite.hasPlusOne) {
+				keysToOmit.push('plusOne');
+			}
+			return _.omit(this.toJSON(), keysToOmit);
+		},
 	},
 });
 
