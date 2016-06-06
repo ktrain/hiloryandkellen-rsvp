@@ -2,10 +2,12 @@
 
 const _ = require('lodash');
 
+const Emailer = require('../../emailer');
 const RsvpError = require('../../error');
 
 const InvitationModel = require('../invitation/invitation.model.js');
 const RsvpModel = require('./rsvp.model.js');
+const RsvpModule = require('./rsvp.module.js');
 const RsvpRouter = require('express').Router();
 
 RsvpRouter.get('/:id', (req, res, next) => {
@@ -58,6 +60,9 @@ RsvpRouter.post('/:id', (req, res, next) => {
 			});
 			rsvp.set(data);
 			return rsvp.save();
+		}).then((rsvp) => {
+			RsvpModule.sendConfirmationEmail(rsvp);
+			return rsvp;
 		}).then((rsvp) => {
 			res.status(200).send({ rsvp: rsvp.toPayloadJSON() });
 		}).catch((err) => {

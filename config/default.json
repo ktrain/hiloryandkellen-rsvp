@@ -14,5 +14,9 @@
     "dialectOptions": {
       "ssl": false
     }
+  },
+  "email": {
+    "from": "FROM_EMAIL",
+    "admin": "ADMIN_EMAIL"
   }
 }

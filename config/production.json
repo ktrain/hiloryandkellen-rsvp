@@ -1,4 +1,9 @@
 {
   "db": {
+    "logging": false,
+    "replication": false,
+    "dialectOptions": {
+      "ssl": true
+    }
   }
 }

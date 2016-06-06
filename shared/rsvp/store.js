@@ -69,20 +69,22 @@ module.exports = flux.createStore({
 				if (err) {
 					console.error(err);
 					// there's no rsvp for this invitation ID, so set up the data
-					const invitation = Store.invitation.data;
-					Store.rsvp.data = {
-						email: '',
-						guests: _.map(invitation.guests, (guest) => {
-							return {
-								name: guest,
-								isAttending: {},
-								dietaryRestrictions: '',
-							};
-						}),
-						plusOne: {},
-						musicRequests: '',
-						message: '',
-					};
+					if (err.status === 404) {
+						const invitation = Store.invitation.data;
+						Store.rsvp.data = {
+							email: '',
+							guests: _.map(invitation.guests, (guest) => {
+								return {
+									name: guest,
+									isAttending: {},
+									dietaryRestrictions: '',
+								};
+							}),
+							plusOne: {},
+							musicRequests: '',
+							message: '',
+						};
+					}
 				} else {
 					Store.rsvp.data = res.body.rsvp;
 				}
@@ -101,8 +103,12 @@ module.exports = flux.createStore({
 			.end((err, res) => {
 				Store.rsvp.status.busy = false;
 				if (err) {
-					console.error('err response body', err.response.body);
-					Store.rsvp.status.err = err.response.body;
+					console.error(err);
+					if (err.response) {
+						Store.rsvp.status.err = err.response.body;
+					} else {
+						Store.rsvp.status.err = err;
+					}
 				} else {
 					Store.rsvp.data = res.body.rsvp;
 				}

@@ -47,12 +47,14 @@ const RsvpModel = db.sequelize.define('Rsvp', {
 	},
 	instanceMethods: {
 		toPayloadJSON: function() {
-			const invite = this.getInvitation();
 			const keysToOmit = [ 'createdAt', 'updatedAt' ];
-			if (!invite.hasPlusOne) {
-				keysToOmit.push('plusOne');
-			}
 			return _.omit(this.toJSON(), keysToOmit);
+		},
+		isSomeoneAttending: function() {
+			return _.reduce(this.guests, (cur, guest) => {
+				let guestIsAttendingAtLeastOneThing = _.some(_.values(guest.isAttending));
+				return cur || guestIsAttendingAtLeastOneThing;
+			}, false);
 		},
 	},
 });
