@@ -5,12 +5,12 @@ const config = require('browserify-stockpiler')({
 	envPrefix: 'APP',
 });
 
-if (!config.SENDGRID_USERNAME || !config.SENDGRID_PASSWORD) {
-	throw new Error(
-			'Email vars config.SENDGRID_USERNAME and config.SENDGRID_PASSWORD are not configured.'
-	);
+const username = config.sendgridUsername || process.env.SENDGRID_USERNAME;
+const password = config.sendgridPassword || process.env.SENDGRID_PASSWORD;
+if (!username || !password) {
+	throw new Error('Email config vars are missing.');
 }
-const sendgrid = require('sendgrid')(config.SENDGRID_USERNAME, config.SENDGRID_PASSWORD);
+const sendgrid = require('sendgrid')(username, password);
 
 
 const Email = {
