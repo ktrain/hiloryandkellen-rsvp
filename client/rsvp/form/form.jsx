@@ -227,7 +227,7 @@ const Form = React.createClass({
 					</div>
 					{this.renderPlusOne()}
 					<div className="musicRequests">
-						<h3>Got any music requests?</h3>
+						<h3>Have any music requests?</h3>
 						<textarea
 							placeholder="Turn down for what?"
 							value={rsvp.musicRequests}

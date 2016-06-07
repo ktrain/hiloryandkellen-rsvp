@@ -28,6 +28,10 @@ const Finder = React.createClass({
 		};
 	},
 
+	componentDidMount: function() {
+		this.refs.input.focus();
+	},
+
 	handleChange: function(evt) {
 		this.setState({ name: evt.target.value });
 	},
@@ -67,7 +71,8 @@ const Finder = React.createClass({
 			<div className="finder">
 				<form onSubmit={this.handleSubmit}>
 					<TextInput
-						label="What's your name?"
+						ref="input"
+						label="What's your full name?"
 						placeholder="Full name"
 						value={this.state.name}
 						onChange={this.handleChange} />
